@@ -78,6 +78,14 @@ class ErrorResponse
     }
 
     /**
+     * @return bool
+     */
+    public function hasData()
+    {
+        return empty($this->data) === false;
+    }
+
+    /**
      * @return array
      */
     public function getData()
