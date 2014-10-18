@@ -67,11 +67,10 @@ class ErrorHandler
                     break;
             }
 
-            // set error object
-            $errorResponse = (new ErrorResponse())->internalError(new ErrorMessage($errorMessage, $errorCode, $error));
-
             // handle content distribution
-            return $responseHandler($errorResponse);
+            return $responseHandler(
+                (new ErrorResponse())->internalError($errorMessage, $errorCode, $error)
+            );
         });
 
         return true;
@@ -108,11 +107,10 @@ class ErrorHandler
                     ],
                 ];
 
-                // set error object
-                $errorResponse = (new ErrorResponse())->internalError(new ErrorMessage($errorMessage, $errorCode, $error));
-
                 // handle content distribution
-                echo $responseHandler($errorResponse);
+                echo $responseHandler(
+                    (new ErrorResponse())->internalError($errorMessage, $errorCode, $error)
+                );
             }
         });
 
@@ -146,11 +144,10 @@ class ErrorHandler
                 'line'    => $e->getLine(),
             ];
 
-            // set error object
-            $errorResponse = (new ErrorResponse())->internalError(new ErrorMessage($errorMessage, $errorCode, $error));
-
             // handle content distribution
-            echo $responseHandler($errorResponse);
+            echo $responseHandler(
+                (new ErrorResponse())->internalError($errorMessage, $errorCode, $error)
+            );
         });
 
         return true;

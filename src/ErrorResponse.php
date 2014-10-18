@@ -12,147 +12,250 @@ class ErrorResponse
     /**
      * @var int
      */
-    private $statusCode;
+    private $httpCode;
 
     /**
-     * @var ErrorMessage
+     * @var string
      */
-    private $errorMessage;
+    private $message;
+
+    /**
+     * @var string
+     */
+    private $code;
+
+    /**
+     * @var array
+     */
+    private $data = [];
 
     /**
      * @return int
      */
-    public function getStatusCode()
+    public function getHttpCode()
     {
-        return $this->statusCode;
+        return $this->httpCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param string $message
+     *
+     * @return ErrorResponse
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return ErrorResponse
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
+    public function requestMalformed($message = 'Request malformed', $code = null, array $data = [])
+    {
+        $this->setHttpCode(400);
+        $this->setErrorMessage($message, $code, $data);
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
+    public function requestUnauthorised($message = 'Request unauthorised', $code = null, array $data = [])
+    {
+        $this->setHttpCode(401);
+        $this->setErrorMessage($message, $code, $data);
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
+    public function requestForbidden($message = 'Request forbidden', $code = null, array $data = [])
+    {
+        $this->setHttpCode(403);
+        $this->setErrorMessage($message, $code, $data);
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
+    public function requestNotFound($message = 'Request not found', $code = null, array $data = [])
+    {
+        $this->setHttpCode(404);
+        $this->setErrorMessage($message, $code, $data);
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
+    public function requestMethodNotAllowed($message = 'Request method not allowed', $code = null, array $data = [])
+    {
+        $this->setHttpCode(405);
+        $this->setErrorMessage($message, $code, $data);
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
+    public function requestUnprocessableEntity($message = 'Request unprocessable', $code = null, array $data = [])
+    {
+        $this->setHttpCode(422);
+        $this->setErrorMessage($message, $code, $data);
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
+    public function internalError($message = 'Internal error', $code = null, array $data = [])
+    {
+        $this->setHttpCode(500);
+        $this->setErrorMessage($message, $code, $data);
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
+    public function badGateway($message = 'Bad gateway', $code = null, array $data = [])
+    {
+        $this->setHttpCode(502);
+        $this->setErrorMessage($message, $code, $data);
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
+    public function unavailable($message = 'Unavailable', $code = null, array $data = [])
+    {
+        $this->setHttpCode(503);
+        $this->setErrorMessage($message, $code, $data);
+
+        return $this;
     }
 
     /**
      * @param $code
-     */
-    private function setStatusCode($code)
-    {
-        $this->statusCode = $code;
-    }
-
-    /**
-     * @return ErrorMessage
-     */
-    public function getErrorMessage()
-    {
-        return $this->errorMessage;
-    }
-
-    /**
-     * @param ErrorMessage $errorMessage
      *
      * @return ErrorResponse
      */
-    private function setErrorMessage(ErrorMessage $errorMessage)
+    private function setHttpCode($code)
     {
-        $this->errorMessage = $errorMessage;
-    }
-
-    /**
-     * @param ErrorMessage $errorMessage
-     *
-     * @return ErrorResponse
-     */
-    public function requestMalformed(ErrorMessage $errorMessage)
-    {
-        $this->setStatusCode(400);
-        $this->setErrorMessage($errorMessage);
+        $this->httpCode = $code;
 
         return $this;
     }
 
     /**
-     * @param ErrorMessage $errorMessage
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
      *
      * @return ErrorResponse
      */
-    public function requestUnauthorised(ErrorMessage $errorMessage)
+    private function setErrorMessage($message = 'Unknown error', $code = null, array $data = [])
     {
-        $this->setStatusCode(401);
-        $this->setErrorMessage($errorMessage);
-
-        return $this;
-    }
-
-    /**
-     * @param ErrorMessage $errorMessage
-     *
-     * @return ErrorResponse
-     */
-    public function requestForbidden(ErrorMessage $errorMessage)
-    {
-        $this->setStatusCode(403);
-        $this->setErrorMessage($errorMessage);
-
-        return $this;
-    }
-
-    /**
-     * @param ErrorMessage $errorMessage
-     *
-     * @return ErrorResponse
-     */
-    public function requestNotFound(ErrorMessage $errorMessage)
-    {
-        $this->setStatusCode(404);
-        $this->setErrorMessage($errorMessage);
-
-        return $this;
-    }
-
-    /**
-     * @param ErrorMessage $errorMessage
-     *
-     * @return ErrorResponse
-     */
-    public function requestMethodNotAllowed(ErrorMessage $errorMessage)
-    {
-        $this->setStatusCode(405);
-        $this->setErrorMessage($errorMessage);
-
-        return $this;
-    }
-
-    /**
-     * @param ErrorMessage $errorMessage
-     *
-     * @return ErrorResponse
-     */
-    public function internalError(ErrorMessage $errorMessage)
-    {
-        $this->setStatusCode(500);
-        $this->setErrorMessage($errorMessage);
-
-        return $this;
-    }
-
-    /**
-     * @param ErrorMessage $errorMessage
-     *
-     * @return ErrorResponse
-     */
-    public function badGateway(ErrorMessage $errorMessage)
-    {
-        $this->setStatusCode(502);
-        $this->setErrorMessage($errorMessage);
-
-        return $this;
-    }
-
-    /**
-     * @param ErrorMessage $errorMessage
-     *
-     * @return ErrorResponse
-     */
-    public function unavailable(ErrorMessage $errorMessage)
-    {
-        $this->setStatusCode(503);
-        $this->setErrorMessage($errorMessage);
+        $this->message = $message;
+        $this->code = $code;
+        $this->data = $data;
 
         return $this;
     }
