@@ -1,0 +1,28 @@
+{
+    "name": "simplon/error",
+    "description": "Graceful error handling",
+    "homepage": "https://github.com/fightbulc/simplon_error",
+    "type": "library",
+    "keywords": [
+        "error",
+        "response",
+        "handling",
+        "graceful"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tino Ehrich",
+            "email": "opensource@efides.com",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Simplon\\Error\\": "src/"
+        }
+    }
+}
