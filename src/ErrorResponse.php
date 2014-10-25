@@ -187,6 +187,21 @@ class ErrorResponse
      *
      * @return ErrorResponse
      */
+    public function requestConflict($message = 'Request would cause a conflict', $code = null, array $data = [])
+    {
+        $this->setHttpCode(409);
+        $this->setErrorMessage($message, $code, $data);
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param null|string $code
+     * @param array $data
+     *
+     * @return ErrorResponse
+     */
     public function requestUnprocessableEntity($message = 'Request unprocessable', $code = null, array $data = [])
     {
         $this->setHttpCode(422);
