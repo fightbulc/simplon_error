@@ -68,9 +68,11 @@ class ErrorHandler
             }
 
             // handle content distribution
-            return $responseHandler(
+            echo $responseHandler(
                 (new ErrorResponse())->internalError($errorMessage, $errorCode, $error)
             );
+
+            exit;
         });
 
         return true;
@@ -111,6 +113,8 @@ class ErrorHandler
                 echo $responseHandler(
                     (new ErrorResponse())->internalError($errorMessage, $errorCode, $error)
                 );
+
+                exit;
             }
         });
 
@@ -148,6 +152,8 @@ class ErrorHandler
             echo $responseHandler(
                 (new ErrorResponse())->internalError($errorMessage, $errorCode, $error)
             );
+
+            exit;
         });
 
         return true;
