@@ -9,6 +9,17 @@ namespace Simplon\Error;
  */
 class ErrorResponse
 {
+    const CODE_REQUEST_MALFORMED = 400;
+    const CODE_REQUEST_UNAUTHORISED = 401;
+    const CODE_REQUEST_FORBIDDEN = 403;
+    const CODE_REQUEST_NOT_FOUND = 404;
+    const CODE_REQUEST_METHOD_NOT_ALLOWED = 405;
+    const CODE_REQUEST_WOULD_CAUSE_CONFLICT = 409;
+    const CODE_REQUEST_UNPROCESSABLE = 422;
+    const CODE_INTERNAL_ERROR = 500;
+    const CODE_BAD_GATEWAY = 502;
+    const CODE_UNAVAILABLE = 503;
+
     /**
      * @var int
      */
@@ -114,7 +125,7 @@ class ErrorResponse
      */
     public function requestMalformed($message = 'Request malformed', $code = null, array $data = [])
     {
-        $this->setHttpCode(400);
+        $this->setHttpCode(ErrorResponse::CODE_REQUEST_MALFORMED);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -129,7 +140,7 @@ class ErrorResponse
      */
     public function requestUnauthorised($message = 'Request unauthorised', $code = null, array $data = [])
     {
-        $this->setHttpCode(401);
+        $this->setHttpCode(ErrorResponse::CODE_REQUEST_UNAUTHORISED);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -144,7 +155,7 @@ class ErrorResponse
      */
     public function requestForbidden($message = 'Request forbidden', $code = null, array $data = [])
     {
-        $this->setHttpCode(403);
+        $this->setHttpCode(ErrorResponse::CODE_REQUEST_FORBIDDEN);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -159,7 +170,7 @@ class ErrorResponse
      */
     public function requestNotFound($message = 'Request not found', $code = null, array $data = [])
     {
-        $this->setHttpCode(404);
+        $this->setHttpCode(ErrorResponse::CODE_REQUEST_NOT_FOUND);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -174,7 +185,7 @@ class ErrorResponse
      */
     public function requestMethodNotAllowed($message = 'Request method not allowed', $code = null, array $data = [])
     {
-        $this->setHttpCode(405);
+        $this->setHttpCode(ErrorResponse::CODE_REQUEST_METHOD_NOT_ALLOWED);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -189,7 +200,7 @@ class ErrorResponse
      */
     public function requestConflict($message = 'Request would cause a conflict', $code = null, array $data = [])
     {
-        $this->setHttpCode(409);
+        $this->setHttpCode(ErrorResponse::CODE_REQUEST_WOULD_CAUSE_CONFLICT);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -204,7 +215,7 @@ class ErrorResponse
      */
     public function requestUnprocessableEntity($message = 'Request unprocessable', $code = null, array $data = [])
     {
-        $this->setHttpCode(422);
+        $this->setHttpCode(ErrorResponse::CODE_REQUEST_UNPROCESSABLE);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -219,7 +230,7 @@ class ErrorResponse
      */
     public function internalError($message = 'Internal error', $code = null, array $data = [])
     {
-        $this->setHttpCode(500);
+        $this->setHttpCode(ErrorResponse::CODE_INTERNAL_ERROR);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -234,7 +245,7 @@ class ErrorResponse
      */
     public function badGateway($message = 'Bad gateway', $code = null, array $data = [])
     {
-        $this->setHttpCode(502);
+        $this->setHttpCode(ErrorResponse::CODE_BAD_GATEWAY);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -249,7 +260,7 @@ class ErrorResponse
      */
     public function unavailable($message = 'Unavailable', $code = null, array $data = [])
     {
-        $this->setHttpCode(503);
+        $this->setHttpCode(ErrorResponse::CODE_UNAVAILABLE);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
