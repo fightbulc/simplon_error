@@ -69,7 +69,7 @@ class ErrorHandler
 
             // handle content distribution
             echo $responseHandler(
-                (new ErrorResponse())->internalError($errorMessage, $errorCode, $error)
+                (new ErrorContext())->internalError($errorMessage, $errorCode, $error)
             );
 
             exit;
@@ -111,7 +111,7 @@ class ErrorHandler
 
                 // handle content distribution
                 echo $responseHandler(
-                    (new ErrorResponse())->internalError($errorMessage, $errorCode, $error)
+                    (new ErrorContext())->internalError($errorMessage, $errorCode, $error)
                 );
 
                 exit;
@@ -150,7 +150,7 @@ class ErrorHandler
 
             // handle content distribution
             echo $responseHandler(
-                (new ErrorResponse())->internalError($errorMessage, $errorCode, $error)
+                (new ErrorContext())->internalError($errorMessage, $errorCode, $error)
             );
 
             exit;

@@ -3,11 +3,11 @@
 namespace Simplon\Error;
 
 /**
- * ErrorResponse
+ * ErrorContext
  * @package Simplon\Error
  * @author Tino Ehrich (tino@bigpun.me)
  */
-class ErrorResponse
+class ErrorContext
 {
     const CODE_REQUEST_MALFORMED = 400;
     const CODE_REQUEST_UNAUTHORISED = 401;
@@ -59,7 +59,7 @@ class ErrorResponse
     /**
      * @param string $message
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function setMessage($message)
     {
@@ -79,7 +79,7 @@ class ErrorResponse
     /**
      * @param string $code
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function setCode($code)
     {
@@ -107,7 +107,7 @@ class ErrorResponse
     /**
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function setData($data)
     {
@@ -121,11 +121,11 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function requestMalformed($message = 'Request malformed', $code = null, array $data = [])
     {
-        $this->setHttpCode(ErrorResponse::CODE_REQUEST_MALFORMED);
+        $this->setHttpCode(ErrorContext::CODE_REQUEST_MALFORMED);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -136,11 +136,11 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function requestUnauthorised($message = 'Request unauthorised', $code = null, array $data = [])
     {
-        $this->setHttpCode(ErrorResponse::CODE_REQUEST_UNAUTHORISED);
+        $this->setHttpCode(ErrorContext::CODE_REQUEST_UNAUTHORISED);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -151,11 +151,11 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function requestForbidden($message = 'Request forbidden', $code = null, array $data = [])
     {
-        $this->setHttpCode(ErrorResponse::CODE_REQUEST_FORBIDDEN);
+        $this->setHttpCode(ErrorContext::CODE_REQUEST_FORBIDDEN);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -166,11 +166,11 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function requestNotFound($message = 'Request not found', $code = null, array $data = [])
     {
-        $this->setHttpCode(ErrorResponse::CODE_REQUEST_NOT_FOUND);
+        $this->setHttpCode(ErrorContext::CODE_REQUEST_NOT_FOUND);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -181,11 +181,11 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function requestMethodNotAllowed($message = 'Request method not allowed', $code = null, array $data = [])
     {
-        $this->setHttpCode(ErrorResponse::CODE_REQUEST_METHOD_NOT_ALLOWED);
+        $this->setHttpCode(ErrorContext::CODE_REQUEST_METHOD_NOT_ALLOWED);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -196,11 +196,11 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function requestConflict($message = 'Request would cause a conflict', $code = null, array $data = [])
     {
-        $this->setHttpCode(ErrorResponse::CODE_REQUEST_WOULD_CAUSE_CONFLICT);
+        $this->setHttpCode(ErrorContext::CODE_REQUEST_WOULD_CAUSE_CONFLICT);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -211,11 +211,11 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function requestUnprocessableEntity($message = 'Request unprocessable', $code = null, array $data = [])
     {
-        $this->setHttpCode(ErrorResponse::CODE_REQUEST_UNPROCESSABLE);
+        $this->setHttpCode(ErrorContext::CODE_REQUEST_UNPROCESSABLE);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -226,11 +226,11 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function internalError($message = 'Internal error', $code = null, array $data = [])
     {
-        $this->setHttpCode(ErrorResponse::CODE_INTERNAL_ERROR);
+        $this->setHttpCode(ErrorContext::CODE_INTERNAL_ERROR);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -241,11 +241,11 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function badGateway($message = 'Bad gateway', $code = null, array $data = [])
     {
-        $this->setHttpCode(ErrorResponse::CODE_BAD_GATEWAY);
+        $this->setHttpCode(ErrorContext::CODE_BAD_GATEWAY);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -256,11 +256,11 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     public function unavailable($message = 'Unavailable', $code = null, array $data = [])
     {
-        $this->setHttpCode(ErrorResponse::CODE_UNAVAILABLE);
+        $this->setHttpCode(ErrorContext::CODE_UNAVAILABLE);
         $this->setErrorMessage($message, $code, $data);
 
         return $this;
@@ -269,7 +269,7 @@ class ErrorResponse
     /**
      * @param $code
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     private function setHttpCode($code)
     {
@@ -283,7 +283,7 @@ class ErrorResponse
      * @param null|string $code
      * @param array $data
      *
-     * @return ErrorResponse
+     * @return ErrorContext
      */
     private function setErrorMessage($message = 'Unknown error', $code = null, array $data = [])
     {

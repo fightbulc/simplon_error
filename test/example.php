@@ -3,16 +3,16 @@
 namespace Foo;
 
 use Simplon\Error\ErrorHandler;
-use Simplon\Error\ErrorResponse;
+use Simplon\Error\ErrorContext;
 
 class Bar
 {
     /**
-     * @param ErrorResponse $errorResponse
+     * @param ErrorContext $errorResponse
      *
      * @return string
      */
-    private function formatErrorResponse(ErrorResponse $errorResponse)
+    private function formatErrorResponse(ErrorContext $errorResponse)
     {
         // handle the error response
     }
@@ -23,7 +23,7 @@ class Bar
     private static function handleScriptErrors()
     {
         ErrorHandler::handleScriptErrors(
-            function (ErrorResponse $errorResponse) { return self::formatErrorResponse($errorResponse); }
+            function (ErrorContext $errorResponse) { return self::formatErrorResponse($errorResponse); }
         );
     }
 
@@ -33,7 +33,7 @@ class Bar
     private static function handleFatalErrors()
     {
         ErrorHandler::handleFatalErrors(
-            function (ErrorResponse $errorResponse) { return self::formatErrorResponse($errorResponse); }
+            function (ErrorContext $errorResponse) { return self::formatErrorResponse($errorResponse); }
         );
     }
 
@@ -43,7 +43,7 @@ class Bar
     private static function handleExceptions()
     {
         ErrorHandler::handleExceptions(
-            function (ErrorResponse $errorResponse) { return self::formatErrorResponse($errorResponse); }
+            function (ErrorContext $errorResponse) { return self::formatErrorResponse($errorResponse); }
         );
     }
 }
