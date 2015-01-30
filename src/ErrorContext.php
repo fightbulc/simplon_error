@@ -9,6 +9,8 @@ namespace Simplon\Error;
  */
 class ErrorContext
 {
+    const RESPONSE_TYPE_HTML = 'html';
+    const RESPONSE_TYPE_JSON = 'json';
     const CODE_REQUEST_MALFORMED = 400;
     const CODE_REQUEST_UNAUTHORISED = 401;
     const CODE_REQUEST_FORBIDDEN = 403;
@@ -39,6 +41,27 @@ class ErrorContext
      * @var array
      */
     private $data = [];
+
+    /**
+     * @var string
+     */
+    private $responseType;
+
+    /**
+     * @param string $responseType
+     */
+    public function __construct($responseType = self::RESPONSE_TYPE_HTML)
+    {
+        $this->responseType = $responseType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResponseType()
+    {
+        return $this->responseType;
+    }
 
     /**
      * @return int
