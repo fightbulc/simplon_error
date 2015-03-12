@@ -52,7 +52,7 @@ class ErrorContext
      */
     public function __construct($responseType = self::RESPONSE_TYPE_HTML)
     {
-        $this->responseType = $responseType;
+        $this->setResponseType($responseType);
     }
 
     /**
@@ -61,6 +61,26 @@ class ErrorContext
     public function getResponseType()
     {
         return $this->responseType;
+    }
+
+    /**
+     * @param string $responseType
+     *
+     * @return ErrorContext
+     */
+    public function setResponseType($responseType)
+    {
+        $validResponseTypes = [
+            self::RESPONSE_TYPE_HTML,
+            self::RESPONSE_TYPE_JSON,
+        ];
+
+        if (in_array($responseType, $validResponseTypes))
+        {
+            $this->responseType = $responseType;
+        }
+
+        return $this;
     }
 
     /**
