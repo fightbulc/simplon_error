@@ -5,12 +5,13 @@ namespace Simplon\Error;
 /**
  * ErrorContext
  * @package Simplon\Error
- * @author Tino Ehrich (tino@bigpun.me)
+ * @author  Tino Ehrich (tino@bigpun.me)
  */
 class ErrorContext
 {
     const RESPONSE_TYPE_HTML = 'html';
     const RESPONSE_TYPE_JSON = 'json';
+
     const CODE_REQUEST_MALFORMED = 400;
     const CODE_REQUEST_UNAUTHORISED = 401;
     const CODE_REQUEST_FORBIDDEN = 403;
@@ -48,6 +49,11 @@ class ErrorContext
     private $responseType;
 
     /**
+     * @var \Exception
+     */
+    private $exception;
+
+    /**
      * @param string $responseType
      */
     public function __construct($responseType = self::RESPONSE_TYPE_HTML)
@@ -79,6 +85,26 @@ class ErrorContext
         {
             $this->responseType = $responseType;
         }
+
+        return $this;
+    }
+
+    /**
+     * @return \Exception
+     */
+    public function getException()
+    {
+        return $this->exception;
+    }
+
+    /**
+     * @param \Exception $exception
+     *
+     * @return ErrorContext
+     */
+    public function setException(\Exception $exception)
+    {
+        $this->exception = $exception;
 
         return $this;
     }
@@ -160,9 +186,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */
@@ -175,9 +201,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */
@@ -190,9 +216,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */
@@ -205,9 +231,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */
@@ -220,9 +246,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */
@@ -235,9 +261,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */
@@ -250,9 +276,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */
@@ -265,9 +291,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */
@@ -280,9 +306,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */
@@ -295,9 +321,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */
@@ -322,9 +348,9 @@ class ErrorContext
     }
 
     /**
-     * @param string $message
+     * @param string      $message
      * @param null|string $code
-     * @param array $data
+     * @param array       $data
      *
      * @return ErrorContext
      */

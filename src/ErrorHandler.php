@@ -5,18 +5,18 @@ namespace Simplon\Error;
 /**
  * ErrorHandler
  * @package Simplon\Error
- * @author Tino Ehrich (tino@bigpun.me)
+ * @author  Tino Ehrich (tino@bigpun.me)
  */
 class ErrorHandler
 {
     /**
      * @param callable $responseHandler
-     * @param string $errorMessage
-     * @param string $errorCode
+     * @param string   $errorMessage
+     * @param string   $errorCode
      *
      * @return bool
      */
-    public static function handleScriptErrors(\Closure $responseHandler, $errorMessage = 'An internal error occured', $errorCode = 'ERR00001')
+    public static function handleScriptErrors(\Closure $responseHandler, $errorMessage = 'An internal error occured', $errorCode = 'ERR_SCRIPT')
     {
         set_error_handler(function ($errno, $errstr, $errfile, $errline) use ($responseHandler, $errorMessage, $errorCode)
         {
@@ -80,12 +80,12 @@ class ErrorHandler
 
     /**
      * @param callable $responseHandler
-     * @param string $errorMessage
-     * @param string $errorCode
+     * @param string   $errorMessage
+     * @param string   $errorCode
      *
      * @return bool
      */
-    public static function handleFatalErrors(\Closure $responseHandler, $errorMessage = 'Fatal error', $errorCode = 'ERR00002')
+    public static function handleFatalErrors(\Closure $responseHandler, $errorMessage = 'Fatal error', $errorCode = 'ERR_FATAL')
     {
         ini_set('display_errors', 0);
 
@@ -123,12 +123,12 @@ class ErrorHandler
 
     /**
      * @param callable $responseHandler
-     * @param string $errorMessage
-     * @param string $errorCode
+     * @param string   $errorMessage
+     * @param string   $errorCode
      *
      * @return bool
      */
-    public static function handleExceptions(\Closure $responseHandler, $errorMessage = 'An exception occured', $errorCode = 'ERR00003')
+    public static function handleExceptions(\Closure $responseHandler, $errorMessage = 'An exception occured', $errorCode = 'ERR_EXCEPTION')
     {
         set_exception_handler(function (\Exception $e) use ($responseHandler, $errorMessage, $errorCode)
         {
@@ -144,13 +144,18 @@ class ErrorHandler
             $error = [
                 'message' => $message,
                 'code'    => $e->getCode(),
-                'file'    => $e->getFile(),
-                'line'    => $e->getLine(),
+                'data'    => [
+                    'file'  => $e->getFile(),
+                    'line'  => $e->getLine(),
+                    'trace' => $e->getTrace(),
+                ],
             ];
 
             // handle content distribution
             echo $responseHandler(
-                (new ErrorContext())->internalError($errorMessage, $errorCode, $error)
+                (new ErrorContext())
+                    ->setException($e)
+                    ->internalError($errorMessage, $errorCode, $error)
             );
 
             exit;
