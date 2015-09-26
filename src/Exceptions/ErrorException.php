@@ -37,6 +37,18 @@ class ErrorException extends \Exception
     }
 
     /**
+     * @param string $message
+     *
+     * @return ErrorException
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getData()
@@ -52,18 +64,6 @@ class ErrorException extends \Exception
     public function setData(array $data)
     {
         $this->data = $data;
-
-        return $this;
-    }
-
-    /**
-     * @param string $message
-     *
-     * @return $this
-     */
-    protected function setMessage($message)
-    {
-        $this->message = $message;
 
         return $this;
     }

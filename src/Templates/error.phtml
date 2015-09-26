@@ -91,7 +91,7 @@ use Simplon\Error\ErrorContext;
 
                     <?php if (is_array($sv)): ?>
 
-                        <pre><?php echo json_encode($sv, JSON_PRETTY_PRINT) ?></pre>
+                        <pre><?php echo stripslashes(json_encode($sv, JSON_PRETTY_PRINT)) ?></pre>
 
                     <?php else: ?>
 

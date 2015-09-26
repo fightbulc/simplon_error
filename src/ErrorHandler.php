@@ -2,6 +2,9 @@
 
 namespace Simplon\Error;
 
+use Simplon\Error\Exceptions\ErrorException;
+use Simplon\Error\Exceptions\ServerException;
+
 /**
  * ErrorHandler
  * @package Simplon\Error
@@ -128,27 +131,22 @@ class ErrorHandler
     {
         set_exception_handler(function (\Exception $e) use ($responseHandler, $errorMessage, $errorType)
         {
-            // test for json message
-            $message = json_decode($e->getMessage(), true);
+            $httpStatusCode = ServerException::STATUS_UNKOWN_ERROR;
+            $data = [];
 
-            // has no json
-            if ($message === null)
+            if ($e instanceof ErrorException)
             {
-                $message = $e->getMessage();
+                $httpStatusCode = $e->getHttpStatusCode();
+                $errorMessage = $e->getMessage();
+                $data = $e->getData();
             }
 
-            $data = [
-                'message' => $message,
-                'code'    => $e->getCode(),
-                'data'    => [
-                    'file'  => $e->getFile(),
-                    'line'  => $e->getLine(),
-                    'trace' => $e->getTrace(),
-                ],
-            ];
+            $data['file'] = $e->getFile();
+            $data['line'] = $e->getLine();
+            $data['trace'] = $e->getTrace();
 
             // handle content distribution
-            echo $responseHandler(new ErrorContext($errorMessage, $errorType, $data));
+            echo $responseHandler(new ErrorContext($errorMessage, $errorType, $data, $httpStatusCode));
 
             exit;
         });

@@ -14,50 +14,54 @@ class ServerException extends ErrorException
     const STATUS_TIMEOUT_UPSTREAM = 504;
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function unknownError($message = 'We have no idea what happened but we will be notified and look into the issue.')
+    public function unknownError(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_UNKOWN_ERROR)
-            ->setMessage($message);
+            ->setMessage('We have no idea what happened but we will be notified and look into the issue.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function invalidResponseUpstream($message = 'An upstream server/service responded with an error.')
+    public function invalidResponseUpstream(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_INVALID_RESPONSE_UPSTREAM)
-            ->setMessage($message);
+            ->setMessage('An upstream server/service responded with an error.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function serviceUnavailable($message = 'We are currently not available. Check back in a short time.')
+    public function serviceUnavailable(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_SERVICE_UNAVAILABLE)
-            ->setMessage($message);
+            ->setMessage('We are currently not available. Check back in a short time.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function timeoutUpstream($message = 'The requested upstream server/service timed out.')
+    public function timeoutUpstream(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_TIMEOUT_UPSTREAM)
-            ->setMessage($message);
+            ->setMessage('The requested upstream server/service timed out.')
+            ->setData($data);
     }
 }

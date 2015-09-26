@@ -19,110 +19,119 @@ class ClientException extends ErrorException
     const STATUS_TOO_MANY_REQUESTS = 429;
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function cannotUnderstandRequest($message = 'Server could not understand the request due to invalid syntax.')
+    public function cannotUnderstandRequest(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_BAD_REQUEST)
-            ->setMessage($message);
+            ->setMessage('Server could not understand the request due to invalid syntax.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function requestUnauthorized($message = 'Authentication is needed to access requested content.')
+    public function requestUnauthorized(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_UNAUTHORIZED)
-            ->setMessage($message);
+            ->setMessage('Authentication is needed to access requested content.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function requestForbidden($message = 'Nobody is allowed to access this content.')
+    public function requestForbidden(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_FORBIDDEN)
-            ->setMessage($message);
+            ->setMessage('Nobody is allowed to access this content.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function contentNotFound($message = 'Cannot find your requested content.')
+    public function contentNotFound(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_NOT_FOUND)
-            ->setMessage($message);
+            ->setMessage('Cannot find your requested content.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function requestMethodNotAllowed($message = 'Type of request method is not allowed.')
+    public function requestMethodNotAllowed(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_METHOD_NOT_ALLOWED)
-            ->setMessage($message);
+            ->setMessage('Type of request method is not allowed.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function contentConflict($message = 'The content you are trying to update has changed. Please refresh.')
+    public function contentConflict(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_CONTENT_CONFLICT)
-            ->setMessage($message);
+            ->setMessage('The content you are trying to update has changed. Please refresh.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function contentHasBeenDeleted($message = 'The requested content has been deleted.')
+    public function contentHasBeenDeleted(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_CONTENT_HAS_BEEN_DELETED)
-            ->setMessage($message);
+            ->setMessage('The requested content has been deleted.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function requestHasInvalidData($message = 'Your request data are not valid.')
+    public function requestHasInvalidData(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_INVALID_DATA)
-            ->setMessage($message);
+            ->setMessage('Your request data are not valid.')
+            ->setData($data);
     }
 
     /**
-     * @param string $message
+     * @param array $data
      *
      * @return $this
      */
-    public function tooManyRequests($message = 'You had too many requests. Please wait for a while and try again later.')
+    public function tooManyRequests(array $data = [])
     {
         return $this
             ->setHttpStatusCode(self::STATUS_TOO_MANY_REQUESTS)
-            ->setMessage($message);
+            ->setMessage('You had too many requests. Please wait for a while and try again later.')
+            ->setData($data);
     }
 }
