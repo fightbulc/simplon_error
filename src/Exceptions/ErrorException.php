@@ -22,12 +22,10 @@ class ErrorException extends \Exception
 
     /**
      * @param Exception $previous
-     * @param array $data
      */
-    public function __construct(Exception $previous, array $data = [])
+    public function __construct(Exception $previous = null)
     {
         parent::__construct(null, null, $previous);
-        $this->data = $data;
     }
 
     /**
@@ -44,6 +42,18 @@ class ErrorException extends \Exception
     public function getData()
     {
         return $this->data;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function setData(array $data)
+    {
+        $this->data = $data;
+
+        return $this;
     }
 
     /**
