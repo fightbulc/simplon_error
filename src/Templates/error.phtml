@@ -87,7 +87,7 @@ use Simplon\Error\ErrorContext;
 
             <?php foreach ($v as $sk => $sv): ?>
                 <div>
-                    <strong><?php echo $sk ?></strong>
+                    <strong><?php echo preg_match('/^\d+$/', $sk) === 1 ? $k : $sk ?></strong>
 
                     <?php if (is_array($sv)): ?>
 
@@ -95,7 +95,15 @@ use Simplon\Error\ErrorContext;
 
                     <?php else: ?>
 
-                        <p><?php echo $sv ?></p>
+                        <?php if (empty($sv) && $sv !== 0): ?>
+
+                            <p>[EMPTY VALUE]</p>
+
+                        <?php else: ?>
+
+                            <p><?php echo $sv ?></p>
+
+                        <?php endif ?>
 
                     <?php endif ?>
                 </div>
@@ -104,9 +112,17 @@ use Simplon\Error\ErrorContext;
         <?php else: ?>
 
             <div>
-                <strong><?php echo $k ?></strong>
+                <strong><?php echo preg_match('/^\d+$/', $k) === 1 ? '&nbsp;' : $k ?></strong>
 
-                <p><?php echo $v ?></p>
+                <?php if (empty($v) && $v !== 0): ?>
+
+                    <p>[EMPTY VALUE]</p>
+
+                <?php else: ?>
+
+                    <p><?php echo $v ?></p>
+
+                <?php endif ?>
             </div>
 
         <?php endif ?>
