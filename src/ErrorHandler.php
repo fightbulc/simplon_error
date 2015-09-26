@@ -140,9 +140,12 @@ class ErrorHandler
                 $errorMessage = $e->getMessage();
                 $data = $e->getData();
             }
+            else
+            {
+                $data['reason'] = $e->getMessage();
+            }
 
-            $data['file'] = $e->getFile();
-            $data['line'] = $e->getLine();
+            $data['file'] = $e->getFile() . ':' . $e->getLine();
             $data['trace'] = $e->getTrace();
 
             // handle content distribution
