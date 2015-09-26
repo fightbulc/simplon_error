@@ -36,7 +36,7 @@ class ErrorContext
      * @param array $data
      * @param int $httpStatusCode
      */
-    public function __construct($message, $type, array $data = [], $httpStatusCode = ServerException::STATUS_UNKOWN_ERROR)
+    public function __construct($message, $type, array $data = [], $httpStatusCode = ServerException::STATUS_INTERNAL_ERROR)
     {
         $this->message = $message;
         $this->type = $type;

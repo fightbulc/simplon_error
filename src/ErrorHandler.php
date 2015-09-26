@@ -131,7 +131,7 @@ class ErrorHandler
     {
         set_exception_handler(function (\Exception $e) use ($responseHandler, $errorMessage, $errorType)
         {
-            $httpStatusCode = ServerException::STATUS_UNKOWN_ERROR;
+            $httpStatusCode = ServerException::STATUS_INTERNAL_ERROR;
             $data = [];
 
             if ($e instanceof ErrorException)

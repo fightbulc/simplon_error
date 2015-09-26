@@ -8,7 +8,7 @@ namespace Simplon\Error\Exceptions;
  */
 class ServerException extends ErrorException
 {
-    const STATUS_UNKOWN_ERROR = 500;
+    const STATUS_INTERNAL_ERROR = 500;
     const STATUS_INVALID_RESPONSE_UPSTREAM = 502;
     const STATUS_SERVICE_UNAVAILABLE = 503;
     const STATUS_TIMEOUT_UPSTREAM = 504;
@@ -18,11 +18,11 @@ class ServerException extends ErrorException
      *
      * @return $this
      */
-    public function unknownError(array $data = [])
+    public function internalError(array $data = [])
     {
         return $this
-            ->setHttpStatusCode(self::STATUS_UNKOWN_ERROR)
-            ->setMessage('We have no idea what happened but we will be notified and look into the issue.')
+            ->setHttpStatusCode(self::STATUS_INTERNAL_ERROR)
+            ->setMessage('We encountered an unexpected issue. We are on it.')
             ->setData($data);
     }
 
