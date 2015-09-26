@@ -10,20 +10,20 @@ namespace Simplon\Error;
 class ErrorHandler
 {
     /**
-     * @param callable $responseHandler
-     * @param string   $errorMessage
-     * @param string   $errorCode
+     * @param \Closure $responseHandler
+     * @param string $errorMessage
+     * @param string $errorType
      *
      * @return bool
      */
-    public static function handleScriptErrors(\Closure $responseHandler, $errorMessage = 'An internal error occured', $errorCode = 'ERR_SCRIPT')
+    public static function handleScriptErrors(\Closure $responseHandler, $errorMessage = 'An internal error occured', $errorType = 'ERR_SCRIPT')
     {
-        set_error_handler(function ($errno, $errstr, $errfile, $errline) use ($responseHandler, $errorMessage, $errorCode)
+        set_error_handler(function ($errno, $errstr, $errfile, $errline) use ($responseHandler, $errorMessage, $errorType)
         {
             switch ($errno)
             {
                 case E_USER_ERROR:
-                    $error = [
+                    $data = [
                         'message' => $errstr,
                         'code'    => null,
                         'data'    => [
@@ -35,17 +35,17 @@ class ErrorHandler
                     break;
 
                 case E_USER_WARNING:
-                    $error = [
+                    $data = [
                         'message' => "WARNING: $errstr",
                         'code'    => $errno,
                         'data'    => [
-                            'type' => 'WARNING'
+                            'type' => 'WARNING',
                         ],
                     ];
                     break;
 
                 case E_USER_NOTICE:
-                    $error = [
+                    $data = [
                         'message' => $errstr,
                         'code'    => $errno,
                         'data'    => [
@@ -55,7 +55,7 @@ class ErrorHandler
                     break;
 
                 default:
-                    $error = [
+                    $data = [
                         'message' => $errstr,
                         'code'    => null,
                         'data'    => [
@@ -68,9 +68,7 @@ class ErrorHandler
             }
 
             // handle content distribution
-            echo $responseHandler(
-                (new ErrorContext())->internalError($errorMessage, $errorCode, $error)
-            );
+            echo $responseHandler(new ErrorContext($errorMessage, $errorType, $data));
 
             exit;
         });
@@ -79,17 +77,17 @@ class ErrorHandler
     }
 
     /**
-     * @param callable $responseHandler
-     * @param string   $errorMessage
-     * @param string   $errorCode
+     * @param \Closure $responseHandler
+     * @param string $errorMessage
+     * @param string $errorType
      *
      * @return bool
      */
-    public static function handleFatalErrors(\Closure $responseHandler, $errorMessage = 'Fatal error', $errorCode = 'ERR_FATAL')
+    public static function handleFatalErrors(\Closure $responseHandler, $errorMessage = 'Fatal error', $errorType = 'ERR_FATAL')
     {
         ini_set('display_errors', 0);
 
-        register_shutdown_function(function () use ($responseHandler, $errorMessage, $errorCode)
+        register_shutdown_function(function () use ($responseHandler, $errorMessage, $errorType)
         {
             $lastError = error_get_last();
 
@@ -100,7 +98,7 @@ class ErrorHandler
                 $errfile = $lastError['file'];
                 $errline = $lastError['line'];
 
-                $error = [
+                $data = [
                     'message' => $errstr,
                     'code'    => $errno,
                     'data'    => [
@@ -110,9 +108,7 @@ class ErrorHandler
                 ];
 
                 // handle content distribution
-                echo $responseHandler(
-                    (new ErrorContext())->internalError($errorMessage, $errorCode, $error)
-                );
+                echo $responseHandler(new ErrorContext($errorMessage, $errorType, $data));
 
                 exit;
             }
@@ -122,15 +118,15 @@ class ErrorHandler
     }
 
     /**
-     * @param callable $responseHandler
-     * @param string   $errorMessage
-     * @param string   $errorCode
+     * @param \Closure $responseHandler
+     * @param string $errorMessage
+     * @param string $errorType
      *
      * @return bool
      */
-    public static function handleExceptions(\Closure $responseHandler, $errorMessage = 'An exception occured', $errorCode = 'ERR_EXCEPTION')
+    public static function handleExceptions(\Closure $responseHandler, $errorMessage = 'An exception occured', $errorType = 'ERR_EXCEPTION')
     {
-        set_exception_handler(function (\Exception $e) use ($responseHandler, $errorMessage, $errorCode)
+        set_exception_handler(function (\Exception $e) use ($responseHandler, $errorMessage, $errorType)
         {
             // test for json message
             $message = json_decode($e->getMessage(), true);
@@ -141,7 +137,7 @@ class ErrorHandler
                 $message = $e->getMessage();
             }
 
-            $error = [
+            $data = [
                 'message' => $message,
                 'code'    => $e->getCode(),
                 'data'    => [
@@ -152,11 +148,7 @@ class ErrorHandler
             ];
 
             // handle content distribution
-            echo $responseHandler(
-                (new ErrorContext())
-                    ->setException($e)
-                    ->internalError($errorMessage, $errorCode, $error)
-            );
+            echo $responseHandler(new ErrorContext($errorMessage, $errorType, $data));
 
             exit;
         });
