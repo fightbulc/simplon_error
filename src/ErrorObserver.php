@@ -19,7 +19,7 @@ class ErrorObserver
     /**
      * @var string
      */
-    private $pathErrorTemplate;
+    private $pathErrorTemplate = __DIR__ . '/Templates/error.phtml';
 
     /**
      * @var \Closure[]
@@ -28,12 +28,22 @@ class ErrorObserver
 
     /**
      * @param string $responseType
-     * @param string $pathErrorTemplate
      */
-    public function __construct($responseType, $pathErrorTemplate = __DIR__ . '/Templates/error.phtml')
+    public function __construct($responseType)
     {
         $this->responseType = $responseType;
+    }
+
+    /**
+     * @param string $pathErrorTemplate
+     *
+     * @return ErrorObserver
+     */
+    public function setPathErrorTemplate($pathErrorTemplate)
+    {
         $this->pathErrorTemplate = $pathErrorTemplate;
+
+        return $this;
     }
 
     /**
