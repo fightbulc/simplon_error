@@ -145,8 +145,11 @@ class ErrorHandler
                 $data['reason'] = $e->getMessage();
             }
 
-            $data['file'] = $e->getFile() . ':' . $e->getLine();
-            $data['trace'] = $e->getTrace();
+            if ($e instanceof ServerException)
+            {
+                $data['file'] = $e->getFile() . ':' . $e->getLine();
+                $data['trace'] = $e->getTrace();
+            }
 
             // handle content distribution
             echo $responseHandler(new ErrorContext($errorMessage, $errorType, $data, $httpStatusCode));

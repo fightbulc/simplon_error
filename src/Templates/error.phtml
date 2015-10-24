@@ -85,29 +85,10 @@ use Simplon\Error\ErrorContext;
     <?php foreach ($errorContext->getData() as $k => $v): ?>
         <?php if (is_array($v)): ?>
 
-            <?php foreach ($v as $sk => $sv): ?>
-                <div>
-                    <strong><?php echo preg_match('/^\d+$/', $sk) === 1 ? $k : $sk ?></strong>
-
-                    <?php if (is_array($sv)): ?>
-
-                        <pre><?php echo stripslashes(json_encode($sv, JSON_PRETTY_PRINT)) ?></pre>
-
-                    <?php else: ?>
-
-                        <?php if (empty($sv) && $sv !== 0): ?>
-
-                            <p>[EMPTY VALUE]</p>
-
-                        <?php else: ?>
-
-                            <p><?php echo $sv ?></p>
-
-                        <?php endif ?>
-
-                    <?php endif ?>
-                </div>
-            <?php endforeach ?>
+            <div>
+                <strong><?php echo $k ?></strong>
+                <pre><?php echo stripslashes(json_encode($v, JSON_PRETTY_PRINT)) ?></pre>
+            </div>
 
         <?php else: ?>
 
