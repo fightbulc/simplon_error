@@ -23,7 +23,7 @@ class ServerException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_INTERNAL_ERROR)
             ->setMessage('We encountered an unexpected issue. We are on it.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -36,7 +36,7 @@ class ServerException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_INVALID_RESPONSE_UPSTREAM)
             ->setMessage('An upstream server/service responded with an error.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -49,7 +49,7 @@ class ServerException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_SERVICE_UNAVAILABLE)
             ->setMessage('We are currently not available. Check back in a short time.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -62,6 +62,6 @@ class ServerException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_TIMEOUT_UPSTREAM)
             ->setMessage('The requested upstream server/service timed out.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 }

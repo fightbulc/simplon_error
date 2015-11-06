@@ -18,7 +18,7 @@ class ErrorException extends \Exception
     /**
      * @var array
      */
-    protected $data = [];
+    protected $publicData = [];
 
     /**
      * @param Exception $previous
@@ -49,21 +49,33 @@ class ErrorException extends \Exception
     }
 
     /**
-     * @return array
+     * @param string $key
+     *
+     * @return mixed|null
      */
-    public function getData()
+    public function getPublicData($key = null)
     {
-        return $this->data;
+        if ($key)
+        {
+            if (empty($this->publicData[$key]) === false)
+            {
+                return $this->publicData[$key];
+            }
+
+            return null;
+        }
+
+        return $this->publicData;
     }
 
     /**
-     * @param array $data
+     * @param array $publicData
      *
      * @return $this
      */
-    public function setData(array $data)
+    public function setPublicData(array $publicData)
     {
-        $this->data = $data;
+        $this->publicData = $publicData;
 
         return $this;
     }

@@ -19,6 +19,43 @@ class ClientException extends ErrorException
     const STATUS_TOO_MANY_REQUESTS = 429;
 
     /**
+     * @var array
+     */
+    protected $privateData = [];
+
+    /**
+     * @param string $key
+     *
+     * @return mixed|null
+     */
+    public function getPrivateData($key = null)
+    {
+        if ($key)
+        {
+            if (empty($this->privateData[$key]) === false)
+            {
+                return $this->privateData[$key];
+            }
+
+            return null;
+        }
+
+        return $this->privateData;
+    }
+
+    /**
+     * @param array $privateData
+     *
+     * @return $this
+     */
+    public function setPrivateData(array $privateData)
+    {
+        $this->privateData = $privateData;
+
+        return $this;
+    }
+
+    /**
      * @param array $data
      *
      * @return $this
@@ -28,7 +65,7 @@ class ClientException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_BAD_REQUEST)
             ->setMessage('Server could not understand the request due to invalid syntax.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -41,7 +78,7 @@ class ClientException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_UNAUTHORIZED)
             ->setMessage('Authentication is needed to access requested content.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -54,7 +91,7 @@ class ClientException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_FORBIDDEN)
             ->setMessage('Nobody is allowed to access this content.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -67,7 +104,7 @@ class ClientException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_NOT_FOUND)
             ->setMessage('Cannot find your requested content.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -80,7 +117,7 @@ class ClientException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_METHOD_NOT_ALLOWED)
             ->setMessage('Type of request method is not allowed.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -93,7 +130,7 @@ class ClientException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_CONTENT_CONFLICT)
             ->setMessage('The content you are trying to update has changed. Please refresh.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -106,7 +143,7 @@ class ClientException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_CONTENT_HAS_BEEN_DELETED)
             ->setMessage('The requested content has been deleted.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -119,7 +156,7 @@ class ClientException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_INVALID_DATA)
             ->setMessage('Your request data are not valid.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 
     /**
@@ -132,6 +169,6 @@ class ClientException extends ErrorException
         return $this
             ->setHttpStatusCode(self::STATUS_TOO_MANY_REQUESTS)
             ->setMessage('You had too many requests. Please wait for a while and try again later.')
-            ->setData($data);
+            ->setPublicData($data);
     }
 }

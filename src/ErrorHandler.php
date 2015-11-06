@@ -138,7 +138,7 @@ class ErrorHandler
             {
                 $httpStatusCode = $e->getHttpStatusCode();
                 $errorMessage = $e->getMessage();
-                $data = $e->getData();
+                $data = $e->getPublicData();
             }
             else
             {
